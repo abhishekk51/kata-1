@@ -15,26 +15,26 @@ class StringCalculator:
 
         return sum(num_list)
 
-    def _extract_delimiter_and_numbers(self, numbers: str) -> Tuple[str, str]:
-        default_delimiter = ","
+    def _extract_delimiter_and_numbers(self, numbers: str) -> Tuple[List[str], str]:
+        default_delimiter = [","]
+        delimiters = default_delimiter
         if numbers.startswith("//"):
             parts = numbers.split("\n", 1)
             delimiter_section = parts[0][2:]
 
-            # Check for custom delimiter format with []
             if delimiter_section.startswith("[") and delimiter_section.endswith("]"):
-                delimiter = delimiter_section[1:-1]
+                delimiters = re.findall(r'\[(.*?)\]', delimiter_section)
             else:
-                delimiter = delimiter_section
+                delimiters = [delimiter_section]
 
             numbers = parts[1]
-        else:
-            delimiter = default_delimiter
-        return delimiter, numbers
+        return delimiters, numbers
 
-    def _convert_to_numbers(self, numbers: str, delimiter: str) -> List[int]:
-        numbers = numbers.replace("\n", delimiter)
-        return list(map(int, numbers.split(delimiter)))
+    def _convert_to_numbers(self, numbers: str, delimiters: List[str]) -> List[int]:
+        for delimiter in delimiters:
+            numbers = numbers.replace(delimiter, ",")
+        numbers = numbers.replace("\n", ",")
+        return list(map(int, numbers.split(",")))
 
     def _validate_no_negatives(self, num_list: List[int]) -> None:
         negatives = [num for num in num_list if num < 0]
