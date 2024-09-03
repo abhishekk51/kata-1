@@ -19,7 +19,14 @@ class StringCalculator:
         default_delimiter = ","
         if numbers.startswith("//"):
             parts = numbers.split("\n", 1)
-            delimiter = re.escape(parts[0][2:])
+            delimiter_section = parts[0][2:]
+
+            # Check for custom delimiter format with []
+            if delimiter_section.startswith("[") and delimiter_section.endswith("]"):
+                delimiter = delimiter_section[1:-1]
+            else:
+                delimiter = delimiter_section
+
             numbers = parts[1]
         else:
             delimiter = default_delimiter
