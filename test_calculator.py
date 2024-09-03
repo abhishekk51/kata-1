@@ -7,6 +7,10 @@ class TestStringCalculator(unittest.TestCase):
         calc = StringCalculator()
         self.assertEqual(calc.add(""), 0)
 
+    def test_single_number_returns_the_number_itself(self):
+        calc = StringCalculator()
+        self.assertEqual(calc.add("1"), 1)
+
 
 if __name__ == '__main__':
     unittest.main()
