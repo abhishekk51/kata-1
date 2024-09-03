@@ -33,6 +33,10 @@ class TestStringCalculator(unittest.TestCase):
             calc.add("1,-2,3,-4")
         self.assertEqual(str(context.exception), "negatives not allowed: -2, -4")
 
+    def test_ignore_numbers_greater_than_1000(self):
+        calc = StringCalculator()
+        self.assertEqual(calc.add("2,1001"), 2)
+
 
 if __name__ == '__main__':
     unittest.main()
