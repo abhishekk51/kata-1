@@ -13,5 +13,11 @@ class StringCalculator:
             numbers = parts[1]
 
         numbers = numbers.replace("\n", delimiter)
-        num_list = map(int, numbers.split(delimiter))
+        num_list = list(map(int, numbers.split(delimiter)))
+
+        negatives = [num for num in num_list if num < 0]
+        if negatives:
+            # We can add the error string as constant somewhere to make it modular
+            raise ValueError(f"negatives not allowed: {', '.join(map(str, negatives))}")
+
         return sum(num_list)
