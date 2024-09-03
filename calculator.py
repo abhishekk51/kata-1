@@ -20,4 +20,5 @@ class StringCalculator:
             # We can add the error string as constant somewhere to make it modular
             raise ValueError(f"negatives not allowed: {', '.join(map(str, negatives))}")
 
+        num_list = [num for num in num_list if num <= 1000]
         return sum(num_list)
