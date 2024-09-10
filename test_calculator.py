@@ -27,6 +27,10 @@ class TestStringCalculator(unittest.TestCase):
         calc = StringCalculator()
         self.assertEqual(calc.add("//;\n1;2"), 3)
 
+    def test_wide_delimiters(self):
+        calc = StringCalculator()
+        self.assertEqual(calc.add("//|\n1|2"), 3)
+
     def test_negative_numbers_throw_exception(self):
         calc = StringCalculator()
         with self.assertRaises(ValueError) as context:
